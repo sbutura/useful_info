@@ -25,5 +25,5 @@ RISE - Retail Investor Services and Experiences
 
 **Others:**
 
-NLP - Natural Language Process
+NLP - Natural Language Process - reffers to text mining
 

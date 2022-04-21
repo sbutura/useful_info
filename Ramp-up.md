@@ -1,7 +1,12 @@
 # Steps to setup environment
-1. install Ubuntu on Windows
-2. install aws cli 
-3. install docker **!!!NOT WORKING!!!**
+1. Install Ubuntu on Windows, VS Code, Python 3.8/3.9, PyCharm, DBeaver, DataGrip
+2. Create morningstar github account following steps from [here](https://mswiki.morningstar.com/display/ITSM/Onboard+a+user+to+Morningstar%27s+organization+on+GitHub).
+3. Read docs about [Great Expectations](https://docs.greatexpectations.io/docs/)
+4. Follow [Great Expectations Getting started tutorial](https://docs.greatexpectations.io/docs/guides/setup/setup_overview)
+   
+   **NOTE:** on my case after pip install great_expectations and running $ **great_expectations --version** command, isn't working from Ubuntu terminal but is working from VS Code terminal ¯\ _ (ツ) _ / ¯
+5. Install aws cli 
+6. Install docker **!!!NOT WORKING!!!**
     - $ sudo apt install docker.io
     - $ docker --version
     - $ sudo systemctl status docker --> this command will not work on Ubuntu on WSL. Will throw this error: "System has not been booted with systemd as init system (PID 1). Can't operate."
