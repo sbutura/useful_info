@@ -171,7 +171,7 @@ context.open_data_docs(resource_identifier=validation_result_identifier)
 ```
 - &uarr; this will build a data_docs which will display the results of the runned validation
 
-**NOTE : A complete example with info about ***context*** -> ***data_source*** -> ***expectation_suite*** -> ***profiler*** -> ***validator*** -> ***checkpoint*** can be found [here](https://github.com/sbutura/useful_info/blob/master/expectation_suite_profiler.py)
+**NOTE : A complete example with info about ***context*** -> ***data_source*** -> ***expectation_suite*** -> ***profiler*** -> ***validator*** -> ***checkpoint*** can be found [here](https://github.com/sbutura/useful_info/blob/master/expectation_suite_profiler.py)**
 
 ## 5. **STORES**
 - This is related to the STORES section from *great_expectations.yml* config file 
