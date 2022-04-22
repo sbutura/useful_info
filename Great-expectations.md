@@ -1,24 +1,35 @@
 # Here are some **personal** notes regarding GREAT EXPECTATIONS
 
-1. **DATA CONTEXT :** 
+## 1. **DATA CONTEXT :** 
 
-- created with command $ **great_expectations init** 
+- created with command $ **great_expectations init** or in python code :
+```python
+import great_expectations as ge
+
+context = ge.get_context()
+```
 - is the primary entry point for a Great Expectations deployment, with configurations and methods for all supporting components. More info regarding **great_expectations** folder a.k.a the entry point can be found [here](https://docs.greatexpectations.io/docs/tutorials/getting_started/tutorial_setup#create-a-data-context)
   
-2. **DATASOURCE :**
+## 2. **DATASOURCE :**
 
 - helps to connect to the actual data
 - provides a standard API for accessing and interacting with data from a wide variety of source systems
 - create new datasource with command $ **great_expectations datasource new**
 - at the end of this action, check **great_expectations.yml** file &rarr; **datasources** field should be populated 
-- list datasources with command $ **great_expectations datasource list**
+- list available datasources with command $ **great_expectations datasource list**
 
-**NOTE: Data assets -> multiple batches**
+**NOTE: 1.Data assets -> one/multiple batches**
+
+**2. When using a DB backend for datasources it's recomended to store the DB credentials in ENV vars. This requires a bit of manual work like replace credentials from *uncommited/configvariables.yml* with the env vars**
 ```python
 context.get_available_data_asset_names()
 ```
 - &uarr; This will print out the names of my Datasources, Data Connectors and Data Assets
-3. **EXPECTATIONS SUITE :**
+- more info regarding different ways of connecting to data on the cloud can be found [here](https://docs.greatexpectations.io/docs/guides/connecting_to_your_data/cloud/s3/pandas)
+  
+
+## 3. **EXPECTATIONS SUITE :**
+
 
 -  create a new suite with command $ **great_expectations suite new**
 -  at the end of this action, check **expectation** folder, a .json with the expectations suite name should be created
@@ -51,7 +62,7 @@ context.list_expectation_suite_names()
 ```
 - &uarr; this will list all the existing expectation suites
   
-4. **VALIDATION**
+## 4. **VALIDATION**
 
 ```python
 validator = context.get_validator(
@@ -76,7 +87,7 @@ validator.save_expectation_suite(discard_failed_expectations=False)
 
 - &uarr; save the expectation suite as a JSON file in the **great_expectations/expectations**
 
-4.1. **CHECKPOINTS**
+### 4.1. **CHECKPOINTS**
 
 This is another way of validating data, by simply linking a specific data asset with a specific expectation suite
 
@@ -100,7 +111,7 @@ checkpoint = SimpleCheckpoint(
 - this is taking the data to be validated from *batch_request*
 - will run the expectation suite defined earlier against the data from batch_request
 ```python
-my_checkpoint_name = "name=my-super-checkpoint" 
+my_checkpoint_name = "my-super-checkpoint" 
 
 yaml_config = f"""
 name: {my_checkpoint_name}
@@ -159,3 +170,25 @@ context.build_data_docs()
 context.open_data_docs(resource_identifier=validation_result_identifier)
 ```
 - &uarr; this will build a data_docs which will display the results of the runned validation
+
+**NOTE : A complete example with info about ***context*** -> ***data_source*** -> ***expectation_suite*** -> ***profiler*** -> ***validator*** -> ***checkpoint*** can be found [here](https://github.com/sbutura/useful_info/blob/master/expectation_suite_profiler.py)
+
+## 5. **STORES**
+- This is related to the STORES section from *great_expectations.yml* config file 
+- Here is defined the default behaviour of the tool in regards of where to store expectations, validations, checkpoints etc.
+```yaml
+stores:
+
+...
+
+    validations_s3_store:
+        class_name: ValidationsStore  # defined that this will be a validation store
+        store_backend: 
+        class_name: TupleS3StoreBackend # defined what type of store it is
+        bucket: name-of-my-bucket # bucket 
+        prefix: validations   # prefix = subfolder of bucket
+
+...
+
+validation_store_name: validations_s3_store # here is specified what validation store will be used in case we have multiple validation stores defined
+```
