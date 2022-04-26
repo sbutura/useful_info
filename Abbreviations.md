@@ -26,5 +26,8 @@ RISE - Retail Investor Services and Experiences
 **Others:**
 
 NLP - Natural Language Process - reffers to text mining
+
 MAE - Mean Absolute Error mae=(1n)∑|yî−yi|ni=1
+
+PERR - Predictive Engine Risk Ratings
 
